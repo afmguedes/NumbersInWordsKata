@@ -1,0 +1,9 @@
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\bin\Debug\netstandard2.0\NumbersInWordsKata.deps.json
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\bin\Debug\netstandard2.0\NumbersInWordsKata.dll
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\bin\Debug\netstandard2.0\NumbersInWordsKata.pdb
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\obj\Debug\netstandard2.0\NumbersInWordsKata.csprojResolveAssemblyReference.cache
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\obj\Debug\netstandard2.0\NumbersInWordsKata.csproj.CoreCompileInputs.cache
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\obj\Debug\netstandard2.0\NumbersInWordsKata.AssemblyInfoInputs.cache
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\obj\Debug\netstandard2.0\NumbersInWordsKata.AssemblyInfo.cs
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\obj\Debug\netstandard2.0\NumbersInWordsKata.dll
+C:\_root\NumbersInWordsKata\NumbersInWordsKata\obj\Debug\netstandard2.0\NumbersInWordsKata.pdb

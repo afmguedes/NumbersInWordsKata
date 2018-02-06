@@ -1,0 +1,11 @@
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\bin\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.deps.json
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\bin\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.dll
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\obj\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.csprojResolveAssemblyReference.cache
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\obj\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.csproj.CoreCompileInputs.cache
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\obj\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.AssemblyInfoInputs.cache
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\obj\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.AssemblyInfo.cs
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\bin\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.pdb
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\bin\Debug\netcoreapp2.0\NumbersInWordsKata.dll
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\bin\Debug\netcoreapp2.0\NumbersInWordsKata.pdb
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\obj\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.dll
+C:\_root\NumbersInWordsKata\NumbersInWordsKata.Tests\obj\Debug\netcoreapp2.0\NumbersInWordsKata.Tests.pdb
