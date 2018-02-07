@@ -61,30 +61,17 @@ namespace NumbersInWordsKata
 
                 if (intAmount > 0)
                 {
-                    var restIntAmount = intAmount % 10;
-
-                    amountTranslated = GetAmountTranslated(intAmount, restIntAmount);
-
-                    currencyTranslated =
-                        intAmount < 2 ? Currencies[currency].SingularUnit : Currencies[currency].PluralUnit;
-
+                    amountTranslated = GetAmountTranslated(intAmount);
+                    currencyTranslated = GetCurrencyTranslated(intAmount, currency, UnitType.Unit);
                     numbersInWords += $"{amountTranslated} {currencyTranslated}";
 
-                    if (decAmount > 0)
-                    {
-                        numbersInWords += $" {DotInWords} ";
-                    }
+                    if (decAmount > 0) numbersInWords += $" {DotInWords} ";
                 }
 
                 if (decAmount > 0)
                 {
-                    var restDecAmount = decAmount % 10;
-
-                    amountTranslated = GetAmountTranslated(decAmount, restDecAmount);
-
-                    currencyTranslated =
-                        decAmount < 2 ? Currencies[currency].SingularSubUnit : Currencies[currency].PluralSubUnit;
-
+                    amountTranslated = GetAmountTranslated(decAmount);
+                    currencyTranslated = GetCurrencyTranslated(decAmount, currency, UnitType.SubUnit);
                     numbersInWords += $"{amountTranslated} {currencyTranslated}";
                 }
             }
@@ -92,9 +79,10 @@ namespace NumbersInWordsKata
             return numbersInWords;
         }
 
-        private static string GetAmountTranslated(int amount, int rest)
+        private static string GetAmountTranslated(int amount)
         {
             string amountTranslated;
+            var rest = amount % 10;
 
             if (IsOneWordNumber(amount, rest))
             {
@@ -109,9 +97,23 @@ namespace NumbersInWordsKata
             return amountTranslated;
         }
 
+        private static string GetCurrencyTranslated(int amount, string currency, UnitType unitType)
+        {
+            if (unitType == UnitType.Unit)
+                return amount < 2 ? Currencies[currency].SingularUnit : Currencies[currency].PluralUnit;
+
+            return amount < 2 ? Currencies[currency].SingularSubUnit : Currencies[currency].PluralSubUnit;
+        }
+
         private static bool IsOneWordNumber(double amount, double rest)
         {
             return amount < 21 || rest == 0;
         }
+    }
+
+    internal enum UnitType
+    {
+        Unit,
+        SubUnit
     }
 }
