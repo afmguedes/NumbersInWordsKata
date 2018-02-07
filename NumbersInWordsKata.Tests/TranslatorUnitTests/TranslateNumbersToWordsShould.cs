@@ -23,6 +23,9 @@ namespace NumbersInWordsKata.Tests.TranslatorUnitTests
         [TestCase("21.0 \\$", "twenty one dollars")]
         [TestCase("22.0 \\£", "twenty two pounds")]
         [TestCase("35.0 \\€", "thirty five euros")]
+        [TestCase("100.0 \\€", "one hundred euros")]
+        [TestCase("230.0 \\$", "two hundred thirty dollars")]
+        [TestCase("345.0 \\£", "three hundred forty five pounds")]
         public void ReturnExpectedResult_WhenCalledWithIntegerGreaterThanTwenty(
             string integerGreaterThanTwenty, string expectedResult)
         {

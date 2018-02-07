@@ -33,7 +33,8 @@ namespace NumbersInWordsKata
             {60, "sixty"},
             {70, "seventy"},
             {80, "eighty"},
-            {90, "ninety"}
+            {90, "ninety"},
+            {100, "hundred"}
         };
 
         private static readonly Dictionary<string, Currency> Currencies = new Dictionary<string, Currency>
@@ -49,31 +50,34 @@ namespace NumbersInWordsKata
         {
             var numbersInWords = string.Empty;
 
-            if (Regex.IsMatch(money, @"\d+\.\d+ \\[^\d\.]+"))
+            if (!Regex.IsMatch(money, @"\d+\.\d+ \\[^\d\.]+")) return numbersInWords;
+
+            var amountAndCurrency = money.Split(' ', '.');
+            var intAmount = int.Parse(amountAndCurrency[0]);
+            var decAmount = int.Parse(amountAndCurrency[1]);
+            var currency = amountAndCurrency[2];
+
+            string amountTranslated;
+            string currencyTranslated;
+
+            if (intAmount > 0)
             {
-                var amountAndCurrency = money.Split(' ', '.');
-                var intAmount = int.Parse(amountAndCurrency[0]);
-                var decAmount = int.Parse(amountAndCurrency[1]);
-                var currency = amountAndCurrency[2];
+                amountTranslated = GetAmountTranslated(intAmount);
+                currencyTranslated = GetCurrencyTranslated(intAmount, currency, UnitType.Unit);
+                numbersInWords += $"{amountTranslated} {currencyTranslated}";
+            }
 
-                string amountTranslated;
-                string currencyTranslated;
+            if (decAmount > 0)
+            {
+                amountTranslated = GetAmountTranslated(decAmount);
+                currencyTranslated = GetCurrencyTranslated(decAmount, currency, UnitType.SubUnit);
 
-                if (intAmount > 0)
-                {
-                    amountTranslated = GetAmountTranslated(intAmount);
-                    currencyTranslated = GetCurrencyTranslated(intAmount, currency, UnitType.Unit);
+                var hasIntegerPart = intAmount > 0;
+
+                if (hasIntegerPart)
+                    numbersInWords += $" {DotInWords} {amountTranslated} {currencyTranslated}";
+                else
                     numbersInWords += $"{amountTranslated} {currencyTranslated}";
-
-                    if (decAmount > 0) numbersInWords += $" {DotInWords} ";
-                }
-
-                if (decAmount > 0)
-                {
-                    amountTranslated = GetAmountTranslated(decAmount);
-                    currencyTranslated = GetCurrencyTranslated(decAmount, currency, UnitType.SubUnit);
-                    numbersInWords += $"{amountTranslated} {currencyTranslated}";
-                }
             }
 
             return numbersInWords;
@@ -81,19 +85,37 @@ namespace NumbersInWordsKata
 
         private static string GetAmountTranslated(int amount)
         {
-            string amountTranslated;
-            var rest = amount % 10;
+            var amountTranslated = string.Empty;
 
-            if (IsOneWordNumber(amount, rest))
+            var hundreds = amount / 100;
+
+            if (hundreds > 0)
             {
-                amountTranslated = IntegerTranslations[amount];
-            }
-            else
-            {
-                var tens = amount / 10 * 10;
-                amountTranslated = $"{IntegerTranslations[tens]} {IntegerTranslations[rest]}";
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, hundreds) + " hundred";
+                amount -= hundreds * 100;
             }
 
+            var tens = amount / 10;
+
+            if (tens > 0)
+            {
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, tens * 10);
+                amount -= tens * 10;
+            }
+                
+            if (amount > 0)
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, amount);
+
+            return amountTranslated;
+        }
+
+        private static string SetOrAppendAmountTranslated(string amountTranslated, int place)
+        {
+            var translation = IntegerTranslations[place];
+
+            amountTranslated += string.IsNullOrEmpty(amountTranslated)
+                ? $"{translation}"
+                : $" {translation}";
             return amountTranslated;
         }
 
@@ -103,11 +125,6 @@ namespace NumbersInWordsKata
                 return amount < 2 ? Currencies[currency].SingularUnit : Currencies[currency].PluralUnit;
 
             return amount < 2 ? Currencies[currency].SingularSubUnit : Currencies[currency].PluralSubUnit;
-        }
-
-        private static bool IsOneWordNumber(double amount, double rest)
-        {
-            return amount < 21 || rest == 0;
         }
     }
 
