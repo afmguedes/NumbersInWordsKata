@@ -6,12 +6,12 @@ namespace NumbersInWordsKata.Tests.TranslatorUnitTests
     [TestFixture]
     public class TranslateNumbersToWordsShould
     {
-        [TestCase("1.0 \\$", "one dollar")]
-        [TestCase("1.0 \\£", "one pound")]
-        [TestCase("1.0 \\€", "one euro")]
-        [TestCase("2.0 \\$", "two dollars")]
-        [TestCase("2.0 \\£", "two pounds")]
-        [TestCase("2.0 \\€", "two euros")]
+        [TestCase("1.00 \\$", "one dollar")]
+        [TestCase("1.00 \\£", "one pound")]
+        [TestCase("1.00 \\€", "one euro")]
+        [TestCase("2.00 \\$", "two dollars")]
+        [TestCase("2.00 \\£", "two pounds")]
+        [TestCase("2.00 \\€", "two euros")]
         public void ReturnExpectedResult_WhenCalledWithIntegerLessThanTwentyOne(string integerLessThanTwentyOne,
             string expectedResult)
         {
@@ -20,12 +20,14 @@ namespace NumbersInWordsKata.Tests.TranslatorUnitTests
             actual.Should().Be(expectedResult);
         }
 
-        [TestCase("21.0 \\$", "twenty one dollars")]
-        [TestCase("22.0 \\£", "twenty two pounds")]
-        [TestCase("35.0 \\€", "thirty five euros")]
-        [TestCase("100.0 \\€", "one hundred euros")]
-        [TestCase("230.0 \\$", "two hundred thirty dollars")]
-        [TestCase("345.0 \\£", "three hundred forty five pounds")]
+        [TestCase("21.00 \\$", "twenty one dollars")]
+        [TestCase("22.00 \\£", "twenty two pounds")]
+        [TestCase("35.00 \\€", "thirty five euros")]
+        [TestCase("100.00 \\€", "one hundred euros")]
+        [TestCase("230.00 \\$", "two hundred thirty dollars")]
+        [TestCase("345.00 \\£", "three hundred forty five pounds")]
+        [TestCase("1000.00 \\$", "one thousand dollars")]
+        [TestCase("12345.00 \\£", "twelve thousand three hundred forty five pounds")]
         public void ReturnExpectedResult_WhenCalledWithIntegerGreaterThanTwenty(
             string integerGreaterThanTwenty, string expectedResult)
         {

@@ -34,7 +34,8 @@ namespace NumbersInWordsKata
             {70, "seventy"},
             {80, "eighty"},
             {90, "ninety"},
-            {100, "hundred"}
+            {100, "hundred"},
+            {1000, "thousand"}
         };
 
         private static readonly Dictionary<string, Currency> Currencies = new Dictionary<string, Currency>
@@ -50,7 +51,7 @@ namespace NumbersInWordsKata
         {
             var numbersInWords = string.Empty;
 
-            if (!Regex.IsMatch(money, @"\d+\.\d+ \\[^\d\.]+")) return numbersInWords;
+            if (!Regex.IsMatch(money, @"\d+\.\d\d \\[^\d\.]+")) return numbersInWords;
 
             var amountAndCurrency = money.Split(' ', '.');
             var intAmount = int.Parse(amountAndCurrency[0]);
@@ -87,11 +88,19 @@ namespace NumbersInWordsKata
         {
             var amountTranslated = string.Empty;
 
+            var thousands = amount / 1000;
+
+            if (thousands > 0)
+            {
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, Places.Thousands, thousands);
+                amount -= thousands * 1000;
+            }
+
             var hundreds = amount / 100;
 
             if (hundreds > 0)
             {
-                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, hundreds) + " hundred";
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, Places.Hundreds, hundreds);
                 amount -= hundreds * 100;
             }
 
@@ -99,23 +108,33 @@ namespace NumbersInWordsKata
 
             if (tens > 0)
             {
-                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, tens * 10);
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, Places.Tens, tens);
                 amount -= tens * 10;
             }
-                
+
             if (amount > 0)
-                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, amount);
+                amountTranslated = SetOrAppendAmountTranslated(amountTranslated, Places.Ones, amount);
 
             return amountTranslated;
         }
 
-        private static string SetOrAppendAmountTranslated(string amountTranslated, int place)
+        private static string SetOrAppendAmountTranslated(string amountTranslated, Places place, int integer)
         {
-            var translation = IntegerTranslations[place];
+            var integerToTranslate = place.Equals(Places.Tens) ? integer * 10 : integer;
+            var translation = IntegerTranslations[integerToTranslate];
 
             amountTranslated += string.IsNullOrEmpty(amountTranslated)
                 ? $"{translation}"
                 : $" {translation}";
+
+            switch (place)
+            {
+                case Places.Thousands:
+                case Places.Hundreds:
+                    amountTranslated += $" {IntegerTranslations[(int) place]}";
+                    break;
+            }
+
             return amountTranslated;
         }
 
@@ -132,5 +151,13 @@ namespace NumbersInWordsKata
     {
         Unit,
         SubUnit
+    }
+
+    internal enum Places
+    {
+        Ones = 1,
+        Tens = 10,
+        Hundreds = 100,
+        Thousands = 1000
     }
 }
